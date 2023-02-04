@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -25,4 +26,9 @@ public class LogRepository {
         }
     }
 
+    public Optional<Log> find(String message) {
+        return em.createQuery("SELECT l FROM Log l WHERE l.message = :message", Log.class)
+                .setParameter("message", message)
+                .getResultList().stream().findAny();
+    }
 }
