@@ -117,14 +117,14 @@ class MemberServiceTest {
     @Test
     void recoverException_fail() {
         // given
-        String username = "로그예외_outerTxOn_fail";
+        String username = "로그예외_recoverException_fail";
 
         // when
         Assertions.assertThatThrownBy(() -> memberService.joinV2(username))
                 .isInstanceOf(UnexpectedRollbackException.class);
 
         // then
-        assertTrue(memberRepository.find(username).isPresent());
+        assertTrue(memberRepository.find(username).isEmpty());
         assertTrue(logRepository.find(username).isEmpty());
     }
 }
